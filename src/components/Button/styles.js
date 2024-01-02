@@ -6,7 +6,7 @@ export const Container = styled.button `
     color:  ${({ theme }) => theme.COLORS.BACKGROUND_800};
     font-weight: 500;
 
-    height: 5.6rem;
+    height: 5rem;
     border: 0;
     padding: 0 1.6rem;
     margin-top: 1.6rem;

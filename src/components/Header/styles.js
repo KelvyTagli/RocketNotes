@@ -6,9 +6,7 @@ export const Container = styled.header `
     height: 10.5rem;
     width: 100%;
 
-    border-bottom-width: .3rem;
-    border-bottom-style: solid;
-    border-bottom-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
+    border-bottom: .2rem solid ${({ theme }) => theme.COLORS.BACKGROUND_700};
 
     display: flex;
     align-items: center;
