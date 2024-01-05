@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.header `
     grid-area: header;
 
-    height: 10.5rem;
+    height: 10rem;
     width: 100%;
 
     border-bottom: .2rem solid ${({ theme }) => theme.COLORS.BACKGROUND_700};
