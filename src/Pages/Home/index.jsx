@@ -37,7 +37,7 @@ export function Home() {
                 </Section>
             </Content>
 
-            <NewNote>
+            <NewNote to='/new' >
                 <Plus size={20} color="#080808" />
                 Criar nota
             </NewNote>
