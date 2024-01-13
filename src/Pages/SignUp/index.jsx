@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 import { Container, Form, Background } from "./styles";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { api } from '../../Services/api'
 
 import { Input } from '../../components/Input'
 
@@ -10,6 +14,29 @@ import { EnvelopeSimple, LockSimple, User } from "@phosphor-icons/react";
 
 
 export function SignUp() {
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const navigate = useNavigate()
+
+    function handleSignUp() {
+        if(!name || !email || !password) {
+            return alert('Preencha todos os campos!')
+        }
+
+        api.post("/users", {name, email, password}).then(() => {
+            alert('Usuário cadastrado com sucesso!')
+            navigate('/')
+        }).catch(error => {
+            if(error.response) {
+                alert(error.response.data.message)
+            } else {
+                alert('Não foi possivel cadastrar')
+            }
+        })
+    }
+
     return(
         <Container>
             <Background/>
@@ -18,11 +45,11 @@ export function SignUp() {
                 <p>Aplicação para salvar e gerenciar seus links úteis</p>
                 
                 <h2>Criar sua conta</h2>
-                <Input placeholder="Nome" type="text" icon={User}/>
-                <Input placeholder="E-mail" type="text" icon={EnvelopeSimple}/>
-                <Input placeholder="Senha" type="password" icon={LockSimple}/>
+                <Input placeholder="Nome" type="text" icon={User} onChange={e => setName(e.target.value)}/>
+                <Input placeholder="E-mail" type="text" icon={EnvelopeSimple} onChange={e => setEmail(e.target.value)}/>
+                <Input placeholder="Senha" type="password" icon={LockSimple} onChange={e => setPassword(e.target.value)}/>
 
-                <Button title='Cadastrar'/>
+                <Button title='Cadastrar' onClick={handleSignUp}/>
                 <Link to='/'>
                     Voltar para o login
                 </Link>

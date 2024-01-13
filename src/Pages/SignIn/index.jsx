@@ -6,10 +6,15 @@ import { Input } from '../../components/Input'
 
 import { Button } from '../../components/Button'
 
+import { useAuth } from "../../hooks/auth.jsx";
+
 import { EnvelopeSimple, LockSimple } from "@phosphor-icons/react";
 
 
 export function SignIn() {
+
+    const data = useAuth()
+
     return(
         <Container>
             <Form>
