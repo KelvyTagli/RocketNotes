@@ -1,6 +1,10 @@
 import {Container, Form, Avatar} from './styles'
 
+import { useState } from 'react';
+
 import { ArrowLeft, EnvelopeSimple, LockSimple, User, Camera } from "@phosphor-icons/react";
+
+import { useAuth } from '../../hooks/auth';
 
 import { Input } from '../../components/Input'
 
@@ -9,6 +13,24 @@ import { Button } from '../../components/Button'
 import { Link } from 'react-router-dom';
 
 export function Profile() {
+    const { user, updateProfile } = useAuth()
+
+    const [name, setName] = useState(user.name)
+    const [email, setEmail] = useState(user.email)
+    const [passwordOld, setPasswordOld] = useState()
+    const [passwordNew, setPasswordNew] = useState()
+
+    async function hadleUpdate() {
+        const user = {
+            name,
+            email,
+            Password: passwordNew,
+            oldPassword: passwordOld
+        }
+
+        await updateProfile({ user })
+    }
+
     return (
         <Container>
             <header>
@@ -28,12 +50,37 @@ export function Profile() {
                     </label>
                 </Avatar>
 
-                <Input placeholder='Nome' type='text'icon={User}/>
-                <Input placeholder='E-mail' type='text'icon={EnvelopeSimple}/>
-                <Input placeholder='Senha atual' type='password'icon={LockSimple}/>
-                <Input placeholder='Nova senha' type='password'icon={LockSimple}/>
+                <Input 
+                    placeholder='Nome'
+                    type='text'
+                    icon={User}
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                />
 
-                <Button title='Salvar'/>
+                <Input 
+                    placeholder='E-mail'
+                    type='text'
+                    icon={EnvelopeSimple}
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                 />
+
+                <Input 
+                    placeholder='Senha atual'
+                    type='password'
+                    icon={LockSimple}
+                    onChange={e => setPasswordOld(e.target.value)}
+                />
+
+                <Input
+                    placeholder='Nova senha'
+                    type='password'
+                    icon={LockSimple}
+                    onChange={e => setPasswordNew(e.target.value)}
+                />
+
+                <Button title='Salvar' onClick={hadleUpdate}/>
             </Form>
         </Container>
     )

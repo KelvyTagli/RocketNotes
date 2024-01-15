@@ -10,7 +10,7 @@ export const Container = styled.div`
 `
 
 export const Form = styled.form`
-    padding: 0 136px;
+    padding: 0 10rem;
     
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@ export const Form = styled.form`
 
     > h2 {
         font-size: 2.4rem;
-        margin: 4.8rem 0;
+        margin: 4.4rem 0;
     }
 
     > p {
@@ -33,7 +33,7 @@ export const Form = styled.form`
     }
 
     > a {
-        margin-top: 12.4rem;
+        margin-top: 7rem;
         color: ${({ theme }) => theme.COLORS.ORANGE};
     }
 `

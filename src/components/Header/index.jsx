@@ -1,7 +1,10 @@
 import { Container, Profile,Logout } from "./styles";
 import { Power } from "@phosphor-icons/react";
+import { useAuth } from "../../hooks/auth";
 
 export function Header() {
+    const {signOut} = useAuth()
+
     return (
         <Container>
             <Profile to='/profile' >
@@ -12,7 +15,7 @@ export function Header() {
                 </div>
             </Profile>
 
-            <Logout>
+            <Logout onClick={signOut}>
                 <Power size={24} color="#999591" />
             </Logout>
             
