@@ -12,23 +12,40 @@ import { Button } from '../../components/Button'
 
 import { Link } from 'react-router-dom';
 
+import avatarImage from '../../assest/user.png'
+
+import { api } from '../../Services/api';
+
 export function Profile() {
     const { user, updateProfile } = useAuth()
 
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
-    const [passwordOld, setPasswordOld] = useState()
+    const [passwordOld, setOldPassword] = useState()
     const [passwordNew, setPasswordNew] = useState()
 
-    async function hadleUpdate() {
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarImage
+
+    const [avatar, setAvatar] = useState(avatarUrl)
+    const [avatarFile, setAvatarFile] = useState(null)
+
+    async function handleUpdate() {
         const user = {
             name,
             email,
-            Password: passwordNew,
-            oldPassword: passwordOld
+            password: passwordNew,
+            old_password: passwordOld,
         }
 
-        await updateProfile({ user })
+        await updateProfile({ user, avatarFile })
+    }
+
+    function handleChangeAvatar(event){
+        const file = event.target.files[0]
+        setAvatarFile(file)
+
+        const imagePreview = URL.createObjectURL(file)
+        setAvatar(imagePreview)
     }
 
     return (
@@ -41,12 +58,12 @@ export function Profile() {
 
             <Form>
                 <Avatar>
-                    <img src="http://github.com/kelvytagli.png" alt="Foto do úsuario" />
+                    <img src={avatar} alt="Foto do úsuario" />
 
                     <label htmlFor='avatar'>
                         <Camera size={20} color="#312e38" />
 
-                        <input id='avatar' type='file' />
+                        <input id='avatar' type='file' onChange={handleChangeAvatar}/>
                     </label>
                 </Avatar>
 
@@ -70,7 +87,7 @@ export function Profile() {
                     placeholder='Senha atual'
                     type='password'
                     icon={LockSimple}
-                    onChange={e => setPasswordOld(e.target.value)}
+                    onChange={e => setOldPassword(e.target.value)}
                 />
 
                 <Input
@@ -80,7 +97,7 @@ export function Profile() {
                     onChange={e => setPasswordNew(e.target.value)}
                 />
 
-                <Button title='Salvar' onClick={hadleUpdate}/>
+                <Button title='Salvar' onClick={handleUpdate}/>
             </Form>
         </Container>
     )

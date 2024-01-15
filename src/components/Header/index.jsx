@@ -1,17 +1,22 @@
 import { Container, Profile,Logout } from "./styles";
 import { Power } from "@phosphor-icons/react";
+import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
+import { api } from "../../Services/api";
+import avatarImage from '../../assest/user.png'
 
 export function Header() {
-    const {signOut} = useAuth()
+    const {signOut, user} = useAuth()
+
+    const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarImage
 
     return (
         <Container>
             <Profile to='/profile' >
-                <img src="http://github.com/kelvytagli.png" alt="foto do Usuário" />
+                <img src={avatarUrl} alt={`Foto do ${user.name}`} />
                 <div>
                     <span>Bem-Vindo</span>
-                    <h3>Kelvy Tagliacolli</h3>
+                    <h3>{user.name}</h3>
                 </div>
             </Profile>
 

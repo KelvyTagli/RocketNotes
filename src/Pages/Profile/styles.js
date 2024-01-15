@@ -34,6 +34,7 @@ export const Avatar = styled.div`
         width: 186px;
         height: 186px;
         border-radius: 50%;
+        border: 2px solid ${({ theme }) => theme.COLORS.BACKGROUND_700};
     }
 
     > label {

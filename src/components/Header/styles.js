@@ -26,6 +26,7 @@ export const Profile = styled(Link) `
         width: 5.6rem;
         height: 5.6rem;
         border-radius: 50%;
+        border: 2px solid ${({ theme }) => theme.COLORS.BACKGROUND_700};
     }
 
     >div {
